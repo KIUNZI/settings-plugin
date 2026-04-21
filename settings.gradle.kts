@@ -36,7 +36,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "settings-plugin"
+rootProject.name = "kiunzi-settings-plugin"
 
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")
