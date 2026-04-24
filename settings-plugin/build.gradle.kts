@@ -1,14 +1,20 @@
 plugins {
-    `kotlin-dsl`
+    kotlin("jvm")
     `java-gradle-plugin`
+    `maven-publish`
 }
+
 
 dependencies {
     implementation(project(":conventions-support"))
 }
 
+
 kotlin {
     jvmToolchain(17)
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
 }
 
 gradlePlugin {
