@@ -49,8 +49,8 @@ jobs:
       - name: Ensure Gradle wrapper is executable
         run: chmod +x ./gradlew
 
-      - name: Build, test, and generate Javadocs and KDoc
-        run: ./gradlew --no-daemon clean build javadoc
+      - name: Build, test, and generate documentation
+        run: ./gradlew --no-daemon clean build dokkaHtml
 
       - name: Upload reports and docs for Pages
         if: always()
