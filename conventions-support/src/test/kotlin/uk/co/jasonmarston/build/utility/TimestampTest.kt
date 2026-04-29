@@ -11,7 +11,10 @@ class TimestampTest {
     fun `formats timestamp using expected UTC pattern`() {
         val fixedClock = Clock.fixed(Instant.parse("2026-01-02T03:04:05Z"), ZoneOffset.UTC)
 
-        assertEquals("20260102030405", timestamp(fixedClock))
+        try {
+            assertEquals("20260102030405", timestamp(fixedClock))
+        } catch (e: Throwable) {
+            throw AssertionError("timestamp function not found or failed: ${'$'}{e.message}", e)
+        }
     }
 }
-
