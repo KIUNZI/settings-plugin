@@ -158,25 +158,25 @@ jobs:
           </section>
 
           <section>
-            <h2>Javadocs</h2>
+            <h2>KDoc (Dokka) Documentation</h2>
             <ul class="card-grid">
           HTML
 
-          find _input -type d -path '*/build/docs/javadoc' -print0 |
+          find _input -type d -path '*/build/dokka' -print0 |
           while IFS= read -r -d '' doc_dir; do
             module="${doc_dir#_input/}"
-            module="${module%%/build/docs/javadoc}"
-            mkdir -p "_site/javadocs/$module"
-            cp -R "$doc_dir/." "_site/javadocs/$module" || true
+            module="${module%%/build/dokka}"
+            mkdir -p "_site/kdoc/$module"
+            cp -R "$doc_dir/." "_site/kdoc/$module" || true
 
             cat >> _site/index.html <<HTML
               <li class="card">
-                <a href="./javadocs/$module/">
+                <a href="./kdoc/$module/index.html">
                   <span class="card-title">$module</span>
-                  <span class="card-meta">Public API documentation</span>
+                  <span class="card-meta">Kotlin API documentation (Dokka)</span>
                 </a>
               </li>
-          HTML
+            HTML
           done
 
           cat >> _site/index.html <<'HTML'
