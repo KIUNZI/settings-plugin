@@ -7,6 +7,7 @@ plugins {
 
 dependencies {
     implementation(project(":conventions-support"))
+    testImplementation(kotlin("test"))
 }
 
 
@@ -25,3 +26,8 @@ gradlePlugin {
         }
     }
 }
+
+tasks.test {
+    useJUnitPlatform()
+}
+

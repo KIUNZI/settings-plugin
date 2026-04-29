@@ -1,0 +1,26 @@
+name: Clean up GitHub Pages deployments
+
+on:
+  workflow_run:
+    workflows:
+      - CI (Snapshot Build)
+    types:
+      - completed
+
+concurrency:
+  group: ci-utilities-main
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+    steps:
+      - name: 🧹 Clean up deployments
+        uses: strumwolf/delete-deployment-environment@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: github-pages
+          onlyRemoveDeployments: true
