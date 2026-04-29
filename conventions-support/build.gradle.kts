@@ -53,12 +53,3 @@ if (project.tasks.findByName("dokkaHtml") != null) {
         notCompatibleWithConfigurationCache("Dokka does not support configuration cache yet")
     }
 }
-
-sourceSets {
-    main {
-        java.srcDirs("src/main/kotlin")
-    }
-    test {
-        java.srcDirs("src/test/kotlin")
-    }
-}

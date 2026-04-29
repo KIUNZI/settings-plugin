@@ -49,13 +49,6 @@ jobs:
       - name: Ensure Gradle wrapper is executable
         run: chmod +x ./gradlew
 
-      - name: List main and test utility files
-        run: |
-          echo 'Main sources:'
-          find conventions-support/src/main/kotlin/uk/co/jasonmarston/build/utility/ -type f || true
-          echo 'Test sources:'
-          find conventions-support/src/test/kotlin/uk/co/jasonmarston/build/utility/ -type f || true
-
       - name: Build, test, and generate Javadocs and KDoc
         run: ./gradlew --no-daemon clean build javadoc
 
