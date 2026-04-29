@@ -7,7 +7,6 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.20"
 }
 
-
 dependencies {
     implementation(gradleApi())
     testImplementation(kotlin("test"))
@@ -26,6 +25,7 @@ java {
 }
 
 tasks.register<Jar>("dokkaHtmlJar") {
+    description = "Assembles a JAR containing the Dokka HTML documentation."
     group = "documentation"
     archiveClassifier.set("javadoc")
     from(tasks.dokkaHtml)
