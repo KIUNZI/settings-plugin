@@ -94,7 +94,7 @@ jobs:
       - name: Prepare Pages site
         run: |
           rm -rf _site
-          mkdir -p _site/test-report _site/javadocs
+          mkdir -p _site/test-report _site/kdoc
 
           # Write CSS stylesheet
           cat > _site/style.css <<'CSS'
@@ -145,7 +145,7 @@ jobs:
 
             cat >> _site/index.html <<HTML
               <li class="card">
-                <a href="./test-report/$module/">
+                <a href="./test-report/$module/index.html">
                   <span class="card-title">$module</span>
                   <span class="card-meta">JUnit test report</span>
                 </a>
