@@ -171,7 +171,7 @@ jobs:
 
             # Only add card if index.html exists
             if [ -f "_site/kdoc/$module/index.html" ]; then
-              cat >> _site/index.html <<EOF
+              cat >> _site/index.html <<'EOF'
                     <li class="card">
                       <a href="./kdoc/$module/index.html">
                         <span class="card-title">$module</span>
