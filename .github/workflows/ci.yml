@@ -116,25 +116,25 @@ jobs:
           CSS
 
           # Write polished index.html
-          cat > _site/index.html <<'HTML'
-            <!doctype html>
-            <html lang="en">
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Build Reports</title>
-            <link rel="stylesheet" href="./style.css">
+          cat > _site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Build Reports</title>
+          <link rel="stylesheet" href="./style.css">
 
-            <header class="page-header">
-              <h1>Build Reports</h1>
-              <p class="subtitle">CI artefacts generated from <strong>main</strong></p>
-            </header>
+          <header class="page-header">
+            <h1>Build Reports</h1>
+            <p class="subtitle">CI artefacts generated from <strong>main</strong></p>
+          </header>
 
-            <main class="container">
+          <main class="container">
 
-            <section>
-              <h2>Test Reports</h2>
-              <ul class="card-grid">
-            HTML
+          <section>
+            <h2>Test Reports</h2>
+            <ul class="card-grid">
+          EOF
 
           find _input -type d -path '*/build/reports/tests/test' -print0 |
           while IFS= read -r -d '' report_dir; do
@@ -143,24 +143,24 @@ jobs:
             mkdir -p "_site/test-report/$module"
             cp -R "$report_dir/." "_site/test-report/$module" || true
 
-            cat >> _site/index.html <<HTML
-                <li class="card">
-                  <a href="./test-report/$module/index.html">
-                    <span class="card-title">$module</span>
-                    <span class="card-meta">Unit test report</span>
-                  </a>
-                </li>
-            HTML
+            cat >> _site/index.html <<EOF
+              <li class="card">
+                <a href="./test-report/$module/index.html">
+                  <span class="card-title">$module</span>
+                  <span class="card-meta">Unit test report</span>
+                </a>
+              </li>
+            EOF
           done
 
-          cat >> _site/index.html <<'HTML'
+          cat >> _site/index.html <<'EOF'
                 </ul>
               </section>
 
               <section>
                 <h2>KDoc (Dokka) Documentation</h2>
                 <ul class="card-grid">
-              HTML
+          EOF
 
           find _input -type d -path '*/build/dokka' -print0 |
           while IFS= read -r -d '' dokka_dir; do
@@ -171,18 +171,18 @@ jobs:
 
             # Only add card if index.html exists
             if [ -f "_site/kdoc/$module/index.html" ]; then
-              cat >> _site/index.html <<HTML
+              cat >> _site/index.html <<EOF
                     <li class="card">
                       <a href="./kdoc/$module/index.html">
                         <span class="card-title">$module</span>
                         <span class="card-meta">Kotlin API documentation (Dokka)</span>
                       </a>
                     </li>
-              HTML
+              EOF
             fi
           done
 
-          cat >> _site/index.html <<'HTML'
+          cat >> _site/index.html <<'EOF'
                 </ul>
               </section>
             </main>
@@ -196,7 +196,7 @@ jobs:
                 new Date().toISOString().replace("T", " ").replace("Z", " UTC");
             </script>
             </html>
-          HTML
+          EOF
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -206,3 +206,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
+
