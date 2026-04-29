@@ -145,7 +145,7 @@ jobs:
 
             cat >> _site/index.html <<HTML
               <li class="card">
-                <a href="./test-report/$module/">
+                <a href="./test-report/$module/index.html">
                   <span class="card-title">$module</span>
                   <span class="card-meta">Unit test report</span>
                 </a>
@@ -157,34 +157,10 @@ jobs:
             </ul>
           </section>
 
-          <section>
-            <h2>Javadocs</h2>
-            <ul class="card-grid">
-          HTML
-
-          find _input -type d -path '*/build/docs/javadoc' -print0 |
-          while IFS= read -r -d '' doc_dir; do
-            module="${doc_dir#_input/}"
-            module="${module%%/build/docs/javadoc}"
-            mkdir -p "_site/javadocs/$module"
-            cp -R "$doc_dir/." "_site/javadocs/$module" || true
-
-            cat >> _site/index.html <<HTML
-              <li class="card">
-                <a href="./javadocs/$module/">
-                  <span class="card-title">$module</span>
-                  <span class="card-meta">Public API documentation (Javadoc)</span>
-                </a>
-              </li>
-          HTML
-          done
-
-          cat >> _site/index.html <<'HTML'
-            </ul>
-          </section>
+          # Javadoc section removed: only KDoc (Dokka) documentation will be published
 
           <section>
-            <h2>KDoc (Dokka)</h2>
+            <h2>KDoc (Dokka) Documentation</h2>
             <ul class="card-grid">
           HTML
 
@@ -195,14 +171,17 @@ jobs:
             mkdir -p "_site/kdoc/$module"
             cp -R "$dokka_dir/." "_site/kdoc/$module" || true
 
-            cat >> _site/index.html <<HTML
-              <li class="card">
-                <a href="./kdoc/$module/">
-                  <span class="card-title">$module</span>
-                  <span class="card-meta">Kotlin API documentation (Dokka)</span>
-                </a>
-              </li>
-          HTML
+            # Only add card if index.html exists
+            if [ -f "_site/kdoc/$module/index.html" ]; then
+              cat >> _site/index.html <<HTML
+                <li class="card">
+                  <a href="./kdoc/$module/index.html">
+                    <span class="card-title">$module</span>
+                    <span class="card-meta">Kotlin API documentation (Dokka)</span>
+                  </a>
+                </li>
+              HTML
+            fi
           done
 
           cat >> _site/index.html <<'HTML'
